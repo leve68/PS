@@ -9,15 +9,24 @@ function GetNum(value) {
   let num = value.charCodeAt() - temp;
   return num;
 }
+const m = 1234567891;
 
 let mulValue = [];
 for (let i = 0; i < Number(n); i++) {
   mulValue.push(GetNum(input[i]));
 }
 
-let answer = 0;
-for (let i = 0; i < Number(n); i++) {
-  answer += mulValue[i] * 31 ** i;
+let arr = [1];
+for (let i = 1; i < Number(n); i++) {
+  arr[i] = (arr[i - 1] * 31) % m;
 }
 
+let answer = 0;
+for (let i = 0; i < Number(n); i++) {
+  answer += (mulValue[i] * arr[i]) % m;
+}
+
+if (answer > m) {
+  answer = answer % m;
+}
 console.log(answer);
